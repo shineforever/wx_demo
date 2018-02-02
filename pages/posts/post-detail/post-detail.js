@@ -34,7 +34,7 @@ Page({
     }
   },
 
-  onCollectionTap:function(event){
+  onCollectionTap: function (event) {
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.currentPostId];
     // postid收藏状态取反
@@ -45,6 +45,9 @@ Page({
     this.setData({
       collected: postCollected
     })
-  }
 
+    wx.showToast({
+      title: postCollected ? "收藏成功":"取消收藏"
+    })
+  }
 })
