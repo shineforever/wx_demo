@@ -14,6 +14,7 @@ Page({
   onLoad: function (options) {
     var postId = options.id;
     this.data.currentPostId = postId;
+    // console.log(postId)
     var postData = postsData.postList[postId]; //获取postsData中 postId指定元素的详情
     // this.setData = postData;
     this.setData({
@@ -47,16 +48,26 @@ Page({
     })
 
     wx.showToast({
-      title: postCollected ? "收藏成功" : "取消收藏"
+      title: postCollected ? "收藏成功" : "取消收藏",
+        duration: 1000,
+        icon: "loading"
     })
   },
 
   onShareTap: function (event) {
-    wx.showActionSheet({
-      itemList: [
+    var itemList = [
         "分享到微博",
         "分享到微信"
-      ],
+    ]
+    wx.showActionSheet({
+        itemList:itemList,
+        itemColor:"#405f80",
+        success:function (res) {
+            // res.cancle 用户是否点击了取消按钮
+            // res.tapIndex 数组的序号，从0开始
+            // console.log('用户点击'+ itemList[res.tapIndex])
+        }
+
     })
   },
 
