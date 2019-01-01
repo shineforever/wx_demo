@@ -21,14 +21,14 @@ Page({
       postData: postData
     })
 
-    var postsCollected = wx.getStorageSync('posts_collected')
-    if (postsCollected) {
+      var postsCollected = wx.getStorageSync('posts_collected')
+      if (postsCollected) {
       var postCollected = postsCollected[postId]
       this.setData({
         collected: postCollected
       })
     }
-    else {
+      else {
       var postsCollected = {};
       postsCollected[postId] = false;
       wx.setStorageSync('posts_collected', postsCollected);
@@ -72,7 +72,10 @@ Page({
   },
 
   onMusicTap: function (event) {
+    var currentPostId = this.data.currentPostId;
+    var postData = postsData.postList[currentPostId];
     var isPlayingMusic = this.data.isPlayingMusic;
+
     if (isPlayingMusic) {
       wx.pauseBackgroundAudio();
       this.setData({
@@ -81,9 +84,9 @@ Page({
     }
     else {
       wx.playBackgroundAudio({
-        dataUrl: 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb.mp3?guid=ffffffff82def4af4b12b3cd9337d5e7&uin=346897220&vkey=6292F51E1E384E06DCBDC9AB7C49FD713D632D313AC4858BACB8DDD29067D3C601481D36E62053BF8DFEAF74C0A5CCFADD6471160CAF3E6A&fromtag=46',
-        title: '测试歌曲',
-        coverImgUrl: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
+        dataUrl: postData.music.url,
+        title: postData.music.title,
+        coverImgUrl: postData.music.coverImg,
       });
       this.setData({
         isPlayingMusic: true
